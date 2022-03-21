@@ -17,7 +17,6 @@ class Usuario extends Migration
             $table->string("codusr")->primary();
             $table->unsignedInteger("idrol");
             $table->string("password");
-            $table->rememberToken();;
             $table->timestamps();
         });
 
