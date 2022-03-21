@@ -3,15 +3,30 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Usuario extends Model
+class Usuario  extends Authenticatable implements JWTSubject
 {
-    use HasFactory;
-    protected $fillable=["codusr","password","idrol"];
-    protected $increments=false;
+    use HasFactory, Notifiable;
 
-    public function idrol(){
-        return  $this->belongsTo("App\Models\Rol","idrol","id");
+    protected $fillable = ["codusr", "password", "idrol"];
+    protected $increments = false;
+    protected $table = "usuario";
+
+    public function idrol()
+    {
+        return  $this->belongsTo("App\Models\Rol", "idrol", "id");
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }
