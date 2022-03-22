@@ -28,6 +28,10 @@ php artisan migrate
 php artisan migrate:fresh
 ```
 
+## JWT Key (Para autenticación)
+```bash
+php artisan jwt:secret
+```
 
 # FrontEnd
 ## Node.js
