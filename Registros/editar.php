@@ -23,6 +23,11 @@
                     Editar Activos:
                 </div>
                 <form class="p-4" method="POST" action="editarProceso.php">
+                <div class="mb-3">
+                        <label class="form-label">No_Serial: </label>
+                        <input type="text" class="form-control" name="txtNo_Serial" autofocus required
+                        value="<?php echo $activo->No_Serial; ?>">
+                    </div>
                     <div class="mb-3">
                         <label class="form-label">Descripcion: </label>
                         <input type="text" class="form-control" name="txtDescripcion" required 

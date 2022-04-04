@@ -6,12 +6,13 @@
 
     include 'model/conexion.php';
     $idActivo = $_POST['idActivo'];
+    $No_Serial = $_POST['txtNo_Serial'];
     $Descripcion = $_POST['txtDescripcion'];
     $Valor = $_POST['txtValor'];
     $FechaCompra = $_POST['txtFechaCompra'];
 
-    $sentencia = $bd->prepare("UPDATE Activo SET Descripcion = ?, Valor = ?, FechaCompra = ? where idActivo = ?;");
-    $resultado = $sentencia->execute([$Descripcion, $Valor, $FechaCompra, $idActivo]);
+    $sentencia = $bd->prepare("UPDATE Activo SET  No_Serial = ?, Descripcion = ?, Valor = ?, FechaCompra = ? where idActivo = ?;");
+    $resultado = $sentencia->execute([$No_Serial,$Descripcion, $Valor, $FechaCompra, $idActivo]);
 
     if ($resultado === TRUE) {
         header('Location: index.php?mensaje=editado');

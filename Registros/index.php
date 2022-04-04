@@ -82,6 +82,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">Id Activo</th>
+                                <th scope="col">No. Serial</th>
                                 <th scope="col">Descripcion</th>
                                 <th scope="col">Valor</th>
                                 <th scope="col">Fecha Compra</th>
@@ -96,6 +97,7 @@
 
                             <tr>
                                 <td scope="row"><?php echo $dato->idActivo; ?></td>
+                                <td><?php echo $dato->No_Serial; ?></td>
                                 <td><?php echo $dato->Descripcion; ?></td>
                                 <td><?php echo $dato->Valor; ?></td>
                                 <td><?php echo $dato->FechaCompra; ?></td>
@@ -119,6 +121,10 @@
                     Ingresar Activos:
                 </div>
                 <form class="p-4" method="POST" action="registrar.php">
+                <div class="mb-3">
+                        <label class="form-label">No Serial: </label>
+                        <input type="text" class="form-control" name="txtNo_Serial" autofocus required>
+                    </div>
                     <div class="mb-3">
                         <label class="form-label">Descripcion: </label>
                         <input type="text" class="form-control" name="txtDescripcion" autofocus required>
