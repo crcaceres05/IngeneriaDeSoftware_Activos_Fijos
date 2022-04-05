@@ -3,7 +3,9 @@
 <?php
     include_once "model/conexion.php";
     $sentencia = $bd->query("select * from Activo");
+    $sentencia_usuarios = $bd->query("select * from Empleado");
     $Activo = $sentencia->fetchAll(PDO::FETCH_OBJ);
+    $Empleado = $sentencia_usuarios->fetchAll(PDO::FETCH_OBJ);
     //print_r($persona);
 ?>
 
@@ -86,6 +88,7 @@
                                 <th scope="col">Descripcion</th>
                                 <th scope="col">Valor</th>
                                 <th scope="col">Fecha Compra</th>
+                                <th scope="col">Usuario</th>
                                 <th scope="col" colspan="2">Opciones</th>
                             </tr>
                         </thead>
@@ -101,6 +104,7 @@
                                 <td><?php echo $dato->Descripcion; ?></td>
                                 <td><?php echo $dato->Valor; ?></td>
                                 <td><?php echo $dato->FechaCompra; ?></td>
+                                <td><?php echo $dato->Usuario; ?></td>
                                 <td><a class="text-success" href="editar.php?idActivo=<?php echo $dato->idActivo; ?>"><i class="bi bi-pencil-square"></i></a></td>
                                 <td><a onclick="return confirm('Estas seguro de eliminar?');" class="text-danger" href="eliminar.php?idActivo=<?php echo $dato->idActivo; ?>"><i class="bi bi-trash"></i></a></td>
                             </tr>
@@ -137,7 +141,29 @@
                         <label class="form-label">Fecha Compra: </label>
                         <input type="date" class="form-control" name="txtFechaCompra" autofocus required>
                     </div>
-                    <div class="d-grid">
+                     <div class="mb-3">
+                         <label class ="form-label">Usuario:</label>
+                         <select id="usuarios" class="form-control" name="txtUsuarios" autofocus required>
+                                <option> -- Seleccionar Usuario -- </option>
+                         
+                                <?php
+                                    $array = json_decode(json_encode($Empleado), true);
+                                    foreach($array as $opciones){
+                                ?>       
+                                    <option><?php echo $opciones['Usuario']; ?></option>
+                                <?php } ?>
+
+                         </select>
+                     </div>               
+
+
+
+
+                    <!-- <div class="mb-3">
+                        <label class="form-label">Usuario: </label>
+                        <input type="text" class="form-control" name="txtUsuario" autofocus required>
+                    </div>
+                    <div class="d-grid"> -->
                         <input type="hidden" name="oculto" value="1">
                         <input type="submit" class="btn btn-primary" value="Registrar">
                     </div>

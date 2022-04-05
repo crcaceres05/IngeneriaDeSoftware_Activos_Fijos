@@ -9,9 +9,12 @@
     include_once 'model/conexion.php';
     $idActivo = $_GET['idActivo'];
 
-    $sentencia = $bd->prepare("select * from Activo where idActivo = ?;");
+    $sentencia = $bd->prepare("select * from Activo");
+    $sentencia_usuarios = $bd->query("select * from Empleado");
     $sentencia->execute([$idActivo]);
     $activo = $sentencia->fetch(PDO::FETCH_OBJ);
+    $Empleado = $sentencia_usuarios->fetchAll(PDO::FETCH_OBJ);
+
     //print_r($persona);
 ?>
 
@@ -22,31 +25,54 @@
                 <div class="card-header">
                     Editar Activos:
                 </div>
+
+                <?php 
+                                $array1 = json_decode(json_encode($activo), true);
+                                foreach($activo as $dato){ 
+                            ?>
+
                 <form class="p-4" method="POST" action="editarProceso.php">
                 <div class="mb-3">
                         <label class="form-label">No_Serial: </label>
                         <input type="text" class="form-control" name="txtNo_Serial" autofocus required
-                        value="<?php echo $activo->No_Serial; ?>">
+                        value="<?php echo $dato->No_Serial; ?>">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Descripcion: </label>
                         <input type="text" class="form-control" name="txtDescripcion" required 
-                        value="<?php echo $activo->Descripcion; ?>">
+                        value="<?php echo $dato->Descripcion; ?>">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Valor: </label>
                         <input type="number" class="form-control" name="txtValor" autofocus required
-                        value="<?php echo $activo->Valor; ?>">
+                        value="<?php echo $dato->Valor; ?>">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Fecha Compra: </label>
                         <input type="text" class="form-control" name="txtFechaCompra" autofocus required
-                        value="<?php echo $activo->FechaCompra; ?>">
+                        value="<?php echo $dato->FechaCompra; ?>">
                     </div>
+                     <div class="mb-3">
+                         <label class ="form-label">Usuario:</label>
+                         <select id="usuarios" class="form-control" name="txtUsuarios" autofocus required>
+                                <option> -- Seleccionar Usuario -- </option>
+                         
+                                <?php
+                                    $array = json_decode(json_encode($Empleado), true);
+                                    foreach($array as $opciones){
+                                ?>       
+                                    <option><?php echo $opciones['Usuario']; ?></option>
+                                <?php } ?>
+
+                         </select>
+                     </div>         
                     <div class="d-grid">
-                        <input type="hidden" name="idActivo" value="<?php echo $activo->idActivo; ?>">
+                        <input type="hidden" name="idActivo" value="<?php echo $dato->idActivo; ?>">
                         <input type="submit" class="btn btn-primary" value="Editar">
                     </div>
+                    <?php 
+                                }
+                            ?>
                 </form>
             </div>
         </div>
