@@ -4,7 +4,7 @@
         exit();
     }
 
-    include 'model/conexion.php';
+    include 'config/conexion.php';
     $idActivo = $_GET['idActivo'];
 
     $sentencia = $bd->prepare("DELETE FROM Activo where idActivo = ?;");

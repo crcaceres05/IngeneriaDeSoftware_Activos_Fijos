@@ -1,6 +1,7 @@
 <?php
 include 'template/header.php';
-include "model/conexion.php";
+include 'template/navbar.php';
+include "config/conexion.php";
 ?>
 
 

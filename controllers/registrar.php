@@ -5,7 +5,7 @@
         exit();
     }
 
-    include_once 'model/conexion.php';
+    include_once 'config/conexion.php';
     //$idActivo = $_POST["txtidActivo"];
     $Descripcion = $_POST["txtDescripcion"];
     $Valor = $_POST["txtValor"];
