@@ -8,7 +8,7 @@ include "config/conexion.php";
 <div class="container-fluid">
     <div class="row flex-nowrap ">
     <?php include 'template/sidebar.php' ?>
-        <div class="col-md-4 ">
+        <div class="col-md-4 mt-4 mx-4">
             <div class="card">
                 <div class="card-header">
                     Ingresar Activos:

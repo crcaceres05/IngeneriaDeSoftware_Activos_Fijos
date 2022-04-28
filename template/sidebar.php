@@ -5,30 +5,32 @@
         </a>
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
             <li>
-                <a href="#" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                <a href="usuarios.php" class="nav-link px-0 align-middle">
                     <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Usuarios</span>
                 </a>
             </li>
 
             <li>
-                <a href="#" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                <a href="empresas.php" class="nav-link px-0 align-middle">
                     <i class="fs-4 bi-building"></i> <span class="ms-1 d-none d-sm-inline">Empresas</span>
                 </a>
             </li>
 
             <li>
-                <a href="activos.php" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                <a href="tasascambio.php" class="nav-link px-0 align-middle">
+                    <i class="fs-4 bi-currency-exchange"></i> <span class="ms-1 d-none d-sm-inline">Tasa de Cambio</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="activos.php" class="nav-link px-0 align-middle">
                     <i class="fs-4 bi-files"></i> <span class="ms-1 d-none d-sm-inline">Activos</span>
                 </a>
             </li>
 
             <li>
-                <a href="#" class="nav-link px-0 align-middle">
+                <a href="home.php" class="nav-link px-0 align-middle">
                     <i class="fs-4 bi-journal-check"></i> <span class="ms-1 d-none d-sm-inline">Asignar Activo</span> </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link px-0 align-middle">
-                    <i class="fs-4 bi-gear"></i> <span class="ms-1 d-none d-sm-inline">Otros</span> </a>
             </li>
         </ul>
     </div>
