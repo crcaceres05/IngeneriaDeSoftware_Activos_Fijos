@@ -4,8 +4,21 @@
     include_once "model/conexion.php";
     $sentencia = $bd->query("select * from Activo");
     $sentencia_usuarios = $bd->query("select * from Empleado");
+    $sentencia_busqueda = $bd->query("SELECT * FROM Empleado WHERE Usuario LIKE '%$valor'");
     $Activo = $sentencia->fetchAll(PDO::FETCH_OBJ);
     $Empleado = $sentencia_usuarios->fetchAll(PDO::FETCH_OBJ);
+    $Busqueda = $sentencia_busqueda->fetchAll(PDO::FETCH_OBJ);
+
+    if(!empty($_POST))
+    {
+        $valor = $_POST['campo'];
+        if(!empty($valor)){
+            $sentencia_busqueda;
+        }
+    }
+
+
+
     //print_r($persona);
 ?>
 
@@ -73,6 +86,15 @@
             <?php 
                 }
             ?> 
+
+           
+
+                <form action="" method="POST">
+                    <b>Usuario:</b><input type="text" id="campo" name="campo"  />
+                    <input type="submit" id="enviar" name="enviar" value="Buscar" class="btn btn-primary"/>
+                    <br> </br>
+                </form>
+
 
             <!-- fin alerta -->
             <div class="card">
