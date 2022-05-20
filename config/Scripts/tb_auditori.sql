@@ -1,9 +1,9 @@
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
-DROP TABLE IF EXISTS activos.auditoria;
+DROP TABLE IF EXISTS auditoria.auditoria;
 
-CREATE TABLE activos.auditoria
+CREATE TABLE auditoria.auditoria
 (
    id         int NOT NULL AUTO_INCREMENT,
    type       varchar(255) DEFAULT NULL,
