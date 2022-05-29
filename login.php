@@ -7,7 +7,7 @@ if (isset($_SESSION['user_id'])) {
 }
 require 'config/conexion.php';
 
-if (!empty($_POST['usuario']) && !empty($_POST['clave'])) {
+if (!empty($_POST['usuario']) && !empty($_POST['clave']) && !empty($_POST['empresa'])) {
     $records = $bd->prepare('SELECT codusr, usuariocol, password FROM usuario WHERE codusr = :codusr');
     $records->bindParam(':codusr', $_POST['usuario']);
     $records->execute();
