@@ -4,16 +4,16 @@ include 'template/navbar.php';
 include "config/conexion.php";
 ?>
 <?php
-    if(!isset($_GET['idActivo'])){
+    if(!isset($_GET['codusr'])){
         header('Location: index.php?mensaje=error');
         exit();
     }
 
     include_once 'config/conexion.php';
-    $idActivo = $_GET['idActivo'];
+    $codusr = $_GET['codusr'];
 
-    $sentencia = $bd->prepare("select * from Activo where idActivo = ?;");
-    $sentencia->execute([$idActivo]);
+    $sentencia = $bd->prepare("select * from usuario where codusr = ?;");
+    $sentencia->execute([$codusr]);
     $activo = $sentencia->fetch(PDO::FETCH_OBJ);
     //print_r($persona);
 ?>
@@ -43,7 +43,7 @@ include "config/conexion.php";
                         value="<?php echo $activo->FechaCompra; ?>">
                     </div>
                     <div class="d-grid">
-                        <input type="hidden" name="idActivo" value="<?php echo $activo->idActivo; ?>">
+                        <input type="hidden" name="codusr" value="<?php echo $activo->codusr; ?>">
                         <input type="submit" class="btn btn-primary" value="Editar">
                     </div>
                 </form>
