@@ -2,8 +2,7 @@
 include 'template/header.php';
 include 'template/navbar.php';
 include "config/conexion.php";
-?>
-<?php
+
     if(!isset($_GET['idActivo'])){
         header('Location: index.php?mensaje=error');
         exit();
@@ -12,7 +11,7 @@ include "config/conexion.php";
     include_once 'config/conexion.php';
     $idActivo = $_GET['idActivo'];
 
-    $sentencia = $bd->prepare("select * from Activo where idActivo = ?;");
+    $sentencia = $bd->prepare("select * from activos.activo where idActivo = ?;");
     $sentencia->execute([$idActivo]);
     $activo = $sentencia->fetch(PDO::FETCH_OBJ);
     //print_r($persona);
@@ -31,6 +30,11 @@ include "config/conexion.php";
                         <label class="form-label">Descripcion: </label>
                         <input type="text" class="form-control" name="txtDescripcion" required 
                         value="<?php echo $activo->Descripcion; ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Serial: </label>
+                        <input type="text" class="form-control" name="txtSerial" required 
+                        value="<?php echo $activo->No_Serial; ?>">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Valor: </label>

@@ -19,6 +19,10 @@ include "config/conexion.php";
                         <input type="text" class="form-control" name="txtDescripcion" autofocus required>
                     </div>
                     <div class="mb-3">
+                        <label class="form-label">Serie: </label>
+                        <input type="text" class="form-control" name="txtSerial" autofocus required>
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label">Valor: </label>
                         <input type="number" class="form-control" name="txtValor" autofocus required>
                     </div>

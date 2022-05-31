@@ -42,7 +42,7 @@ $Usuario = $sentencia->fetchAll(PDO::FETCH_OBJ);
                                         <tr>
                                             <td scope="row"><?php echo $dato->codusr; ?></td>
                                             <td><?php echo $dato->rol; ?></td>
-                                            <td><a class="text-warning" href="home.php?codusr=<?php echo $dato->codusr; ?>"><i class="bi bi-pencil-square"></i></a></td>
+                                            <td><a class="text-warning" href="usuarioeditar.php?codusr=<?php echo $dato->codusr; ?>"><i class="bi bi-pencil-square"></i></a></td>
                                         </tr>
 
                                     <?php

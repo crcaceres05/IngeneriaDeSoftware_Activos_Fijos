@@ -1,22 +1,26 @@
 <?php
-    print_r($_POST);
+    //print_r($_POST);
+    if($_POST["pass"] != $_POST["pass2"]){
+        header('Location: ../usuarioeditar.php?mensaje=diferente');
+        exit();
+    }
+
     if(!isset($_POST['codusr'])){
-        header('Location: ../index.php?mensaje=error');
+        header('Location: ../usuarioeditar.php?mensaje=error');
     }
 
     include '../config/conexion.php';
-    $codusr = $_POST['codusr'];
-    $Descripcion = $_POST['txtDescripcion'];
-    $Valor = $_POST['txtValor'];
-    $FechaCompra = $_POST['txtFechaCompra'];
+    $Pass = $_POST['pass'];
+    $rol = $_POST['rol'];
+    
 
-    $sentencia = $bd->prepare("UPDATE Activo SET Descripcion = ?, Valor = ?, FechaCompra = ? where codusr = ?;");
-    $resultado = $sentencia->execute([$Descripcion, $Valor, $FechaCompra, $codusr]);
+    $sentencia = $bd->prepare("UPDATE activos.usuario SET password = ?, rol = ? where codusr = ?;");
+    $resultado = $sentencia->execute([$Pass, $rol, $codusr]);
 
     if ($resultado === TRUE) {
-        header('Location: ../activos.php?mensaje=editado');
+        header('Location: ../usuarios.php?mensaje=editado');
     } else {
-        header('Location: ../activos.php?mensaje=error');
+        header('Location: ../usuarioeditar.php?mensaje=error');
         exit();
     }
     
