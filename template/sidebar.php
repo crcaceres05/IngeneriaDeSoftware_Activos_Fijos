@@ -24,7 +24,7 @@
 
             <li>
                 <a href="empleados.php" class="nav-link px-0 align-middle">
-                    <i class="fs-4 bi-collection"></i> <span class="ms-1 d-none d-sm-inline">Empleados</span>
+                    <i class="fs-4 bi-person-badge-fill"></i> <span class="ms-1 d-none d-sm-inline">Empleados</span>
                 </a>
             </li>
             
@@ -53,7 +53,7 @@
             
             <li>
                 <a href="asignaciones.php" class="nav-link px-0 align-middle">
-                    <i class="fs-4 bi-journal-check"></i> <span class="ms-1 d-none d-sm-inline">Asignaciones</span> </a>
+                    <i class="fs-4 bi-card-checklist""></i> <span class="ms-1 d-none d-sm-inline">Asignaciones</span> </a>
             </li>
 
         </ul>
