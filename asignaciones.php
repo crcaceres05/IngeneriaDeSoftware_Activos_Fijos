@@ -2,24 +2,17 @@
 include 'template/header.php';
 include 'template/navbar.php';
 include "config/conexion.php";
-$sentencia = $bd->query("SELECT e.idempleado,
+$sentencia = $bd->query("SELECT DISTINCT e.idempleado,
                                 e.nombre,
                                 e.apellido,
-                                d.descripcion depto,
-                                a.idactivo,
-                                a.No_Serial,
-                                a.Descripcion descrip_activo,
-                                a.valor,
-                                a.fechacompra,
-                                aa.FechaAsigna
+                                d.descripcion depto
                         FROM activos.empleado e,
                             activos.departamento d,
                             activos.activo a,
                             activos.asignacion aa
                         WHERE     e.Departamento = d.idDepto
                         AND e.idEmpleado = aa.idEmpleado
-                        AND a.idActivo = aa.idActivo
-                        AND e.idEmpleado = 1;");
+                        AND a.idActivo = aa.idActivo;");
 $empleado = $sentencia->fetchAll(PDO::FETCH_OBJ);
 ?>
 
@@ -36,19 +29,17 @@ $empleado = $sentencia->fetchAll(PDO::FETCH_OBJ);
                     <!-- fin alerta -->
                     <div class="card">
                         <div class="card-header">
-                            <tr>
-                            </tr>
+                            <h3>Listado asignaciones</h3>
                         </div>
                         <div class="p-4">
                             <table class="table align-middle">
                                 <thead>
                                     <tr>
-                                        <th scope="col">IdActivo</th>
-                                        <th scope="col">Serial</th>
-                                        <th scope="col">Descripcion</th>
-                                        <th scope="col">Valor</th>
-                                        <th scope="col">Fecha de Compra</th>
-                                        <th scope="col">Fecha de Asignacion</th>
+                                        <th scope="col">ID Empleado</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Apellido</th>
+                                        <th scope="col">Departamento</th>
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -58,12 +49,15 @@ $empleado = $sentencia->fetchAll(PDO::FETCH_OBJ);
                                     ?>
 
                                     <tr>
-                                        <td scope="row"><?php echo $dato->idactivo; ?></td>
-                                        <td><?php echo $dato->No_Serial; ?></td>
-                                        <td><?php echo $dato->descrip_activo; ?></td>
-                                        <td><?php echo $dato->valor; ?></td>
-                                        <td><?php echo $dato->fechacompra; ?></td>
-                                        <td><?php echo $dato->FechaAsigna; ?></td>
+                                        <td scope="row"><?php echo $dato->idempleado; ?></td>
+                                        <td><?php echo $dato->nombre; ?></td>
+                                        <td><?php echo $dato->apellido; ?></td>
+                                        <td><?php echo $dato->depto; ?></td>
+                                        <td>
+                                            <?php
+                                              echo '<a href="tarjeta.php?idempleado='.$dato->idempleado.'" class="btn btn-primary btn-sm">Generar Tarjeta</a>';
+                                            ?>
+                                        </td>
                                     </tr>
 
                                     <?php
@@ -74,7 +68,6 @@ $empleado = $sentencia->fetchAll(PDO::FETCH_OBJ);
                             </table>
 
                         </div>
-                        <a href="tarjeta.php" class="btn btn-primary">Generar PDF</a>
                     </div>
                 </div>
             </div>

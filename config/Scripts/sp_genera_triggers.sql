@@ -1,7 +1,7 @@
-DROP PROCEDURE IF EXISTS sp_genera_triggers;
+DROP PROCEDURE IF EXISTS auditoria.sp_genera_triggers;
 DELIMITER $$
-CREATE PROCEDURE sp_genera_triggers (IN schema_auditar VARCHAR(50), 
-                                     IN tablasNo LONGTEXT CHARSET utf8)
+CREATE PROCEDURE auditoria.sp_genera_triggers (IN schema_auditar VARCHAR(50), 
+                                     IN tablas LONGTEXT CHARSET utf8, OUT script LONGTEXT CHARSET utf8)
 BEGIN
     DECLARE tg_insert, tg_update, tg_delete LONGTEXT;
     DECLARE stmt, tablasTrigger LONGTEXT;
@@ -9,13 +9,13 @@ BEGIN
     DECLARE completo INT DEFAULT FALSE;
  
     -- --------------------------------------------------------
-    -- [ Se escogen las tablas que están por fuera de la lista] 
+    -- [ Se escogen las tablas que están por fuera en la lista] 
     -- --------------------------------------------------------
     DECLARE tablas_lista CURSOR 
     FOR SELECT TABLE_NAME 
         FROM INFORMATION_SCHEMA.TABLES  
         WHERE TABLE_SCHEMA=schema_auditar AND 
-              FIND_IN_SET(TABLE_NAME, tablasNo);
+              !FIND_IN_SET(TABLE_NAME, tablas);
               
     DECLARE CONTINUE HANDLER
         FOR NOT FOUND SET completo = TRUE;
@@ -34,15 +34,15 @@ BEGIN
         -- -------------------------------------------------------------------
         SET tg_update := CONCAT('DROP TRIGGER IF EXISTS ', 
                                  schema_auditar, 
-                                 REPLACE(nombreTabla, 'tn_', '.tg_upd_'), ';\n', 
+                                 '.tg_upd_',nombreTabla, ';\n', 
                                  'DELIMITER $$\n', 
                                  'CREATE TRIGGER ', 
                                  schema_auditar, 
-                                 REPLACE(nombreTabla, 'tn_', '.tg_upd_'), '\n', 
+                                 '.tg_upd_',nombreTabla, '\n', 
                                  '   AFTER UPDATE ON ', nombreTabla,'\n', 
                                  '   FOR EACH ROW\n', 
                                  'BEGIN\n', 
-                                 '     CALL sp_auditoria_log(\'', nombreTabla, '\',\n', 
+                                 '     CALL auditoria.sp_auditoria_log(\'', nombreTabla, '\',\n', 
                                  '                           \'AFTER\', \'ROW\', \'UPDATE\', \n', 
                                  '                           \'', nombreTabla, '\', \n');
                                  
@@ -52,7 +52,7 @@ BEGIN
         SET tg_insert := REPLACE(tg_insert, 'UPDATE', 'INSERT');
         
         SET stmt := (SELECT CONCAT('                           CONCAT(', 
-                                   GROUP_CONCAT(CONCAT('OLD.', COLUMN_NAME) SEPARATOR ', \',\', '), 
+                                   GROUP_CONCAT(CONCAT('IFNULL(OLD.', COLUMN_NAME,','''')') SEPARATOR ', \',\', '), 
                                    '),\n') 
                      FROM information_schema.COLUMNS 
                      WHERE TABLE_SCHEMA=BINARY schema_auditar AND 
@@ -63,7 +63,7 @@ BEGIN
                                 ');\nEND;\n$$\nDELIMITER ;\n\n');
         
         SET stmt := (SELECT CONCAT('                           CONCAT(', 
-                                   GROUP_CONCAT(CONCAT('NEW.', COLUMN_NAME) SEPARATOR ', \',\', '), 
+                                   GROUP_CONCAT(CONCAT('IFNULL(NEW.', COLUMN_NAME,','''')') SEPARATOR ', \',\', '), 
                                    ')') 
                      FROM information_schema.COLUMNS 
                      WHERE TABLE_SCHEMA=BINARY schema_auditar AND 
@@ -81,5 +81,5 @@ BEGIN
     END LOOP;
     CLOSE tablas_lista;
     
-    SET script := tablasTrigger;
+    --  SET script := tablasTrigger;
 END $$
